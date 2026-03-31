@@ -1,5 +1,5 @@
 import { Clock, Store, ArrowRight } from "lucide-react"
-import { Button } from "../ui/button"
+import { Button } from "../../../../components/ui/button"
 import Image from "next/image"
 import montanha from "@/assets/montanha.webp"
 import Link from "next/link"
@@ -14,11 +14,11 @@ export const HeroSection = () => {
                         <div>
                             <div className="flex items-center gap-2">
                                 <Clock className="text-cyan-100 h-4 w-4"></Clock>
-                                <span className="text-gray-200">Crie seu site em 5 min</span>
+                                <span className="text-gray-200 text-body-md">Crie seu site em 5 min</span>
                             </div>
                             <div className="flex items-center gap-2">
                                 <Store className="text-cyan-100 h-4 w-4"></Store>
-                                <span className="text-gray-200">Acompanhe e otimize seu negócio online</span>
+                                <span className="text-gray-200 text-body-md">Acompanhe e otimize seu negócio online</span>
                             </div>
                         </div>
                         <div className="text-white flex flex-col gap-2 mt-5 items-center md:items-start lg:items-start">
