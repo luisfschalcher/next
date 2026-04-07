@@ -15,11 +15,17 @@ export type Post = {
   type: 'Post'
   title: string
   date: IsoDateTimeString
+<<<<<<< Updated upstream
   description: string
   image: string
   /** Markdown file body */
   body: Markdown
   slug: string
+=======
+  /** Markdown file body */
+  body: Markdown
+  url: string
+>>>>>>> Stashed changes
 }  
 
 /** Nested types */
