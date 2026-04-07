@@ -13,7 +13,7 @@
     "clsx": "^2.1.1",
     "contentlayer": "^0.3.4",
     "lucide-react": "^0.577.0",
-    "next": "^13.5.11",
+    "next": "^15",
     "next-contentlayer": "^0.3.4",
     "radix-ui": "^1.4.3",
     "react": "^18.3.1",
