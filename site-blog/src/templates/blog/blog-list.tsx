@@ -8,7 +8,13 @@ export function BlogList() {
     const router = useRouter()
     const query = router.query.q as string
     const pageTitle = query ? `Resultados de busca para "${query}"` : 'Dicas e estratégias para impulsionar seu negócio'
-    const posts = allPosts
+    const posts = query
+        ? allPosts.filter(post =>
+            post.title.toLowerCase().includes(query.toLowerCase()) ||
+            post.description.toLowerCase().includes(query.toLowerCase())
+        )
+        : allPosts
+    const hasPosts = allPosts.length > 0
     return (
         <div className="flex flex-col py-24 flex-grow h-full">
             <header className="pb-14">
@@ -23,16 +29,16 @@ export function BlogList() {
             <PostCardGrid>
                 {posts.map((post) => (
                     <PostCard
-                    key={post._id}
-                    title={post.title}
-                    description={post.description}
-                    date={new Date(post.date).toLocaleDateString("pt-BR")}
-                    slug={post.slug}
-                    image={post.image}
-                    author={{
-                        avatar: post.author.avatar,
-                        name: post.author.name
-                    }}></PostCard>
+                        key={post._id}
+                        title={post.title}
+                        description={post.description}
+                        date={new Date(post.date).toLocaleDateString("pt-BR")}
+                        slug={post.slug ?? post._raw.sourceFileName.replace('.md', '')}
+                        image={post.image}
+                        author={{
+                            avatar: post.author.avatar,
+                            name: post.author.name
+                        }}></PostCard>
                 ))}
             </PostCardGrid>
         </div>

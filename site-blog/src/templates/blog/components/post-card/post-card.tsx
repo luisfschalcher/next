@@ -1,6 +1,5 @@
 import Link from "next/link"
 import Image from "next/image"
-import elon from "@/assets/elon.webp"
 
 type Author = {
     name: string
@@ -28,7 +27,7 @@ export const PostCard = ({slug, title, description, image, date, author}: PostCa
                     </div>
                     <Image
                         src={image}
-                        alt=""
+                        alt={title}
                         width={288}
                         height={144}
                         className="w-full h-40 object-cover object-center rounded-t-2xl"></Image>

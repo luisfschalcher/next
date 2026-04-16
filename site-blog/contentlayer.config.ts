@@ -1,5 +1,4 @@
 import { defineDocumentType, defineNestedType, makeSource } from 'contentlayer/source-files'
-import { getDefinedNamedExports } from 'next/dist/build/utils'
 
 const Author = defineNestedType(() => ({
   name: 'Author',
@@ -27,7 +26,8 @@ export const Post = defineDocumentType(() => ({
       type: 'nested',
       of: Author,
       required: true
-    }
+    },
+    slug: { type: 'string', required: false },
   },
   computedFields: {
     url: { type: 'string', resolve: (post) => `/posts/${post._raw.flattenedPath}` },

@@ -18,6 +18,7 @@ export type Post = {
   description: string
   image: string
   author: Author
+  slug?: string | undefined
   /** Markdown file body */
   body: Markdown
   url: string
