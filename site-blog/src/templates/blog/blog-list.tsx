@@ -3,6 +3,7 @@ import { useRouter } from "next/router"
 import { PostCard } from "./components/post-card"
 import { PostCardGrid } from "./components/post-card-grid"
 import { allPosts } from "contentlayer/generated"
+import { Inbox } from "lucide-react"
 
 export function BlogList() {
     const router = useRouter()
@@ -14,7 +15,7 @@ export function BlogList() {
             post.description.toLowerCase().includes(query.toLowerCase())
         )
         : allPosts
-    const hasPosts = allPosts.length > 0
+    const hasPosts = posts.length > 0
     return (
         <div className="flex flex-col py-24 flex-grow h-full">
             <header className="pb-14">
@@ -26,21 +27,32 @@ export function BlogList() {
                     <Search></Search>
                 </div>
             </header>
-            <PostCardGrid>
-                {posts.map((post) => (
-                    <PostCard
-                        key={post._id}
-                        title={post.title}
-                        description={post.description}
-                        date={new Date(post.date).toLocaleDateString("pt-BR")}
-                        slug={post.slug ?? post._raw.sourceFileName.replace('.md', '')}
-                        image={post.image}
-                        author={{
-                            avatar: post.author.avatar,
-                            name: post.author.name
-                        }}></PostCard>
-                ))}
-            </PostCardGrid>
+            {hasPosts && (
+                <PostCardGrid>
+                    {posts.map((post) => (
+                        <PostCard
+                            key={post._id}
+                            title={post.title}
+                            description={post.description}
+                            date={new Date(post.date).toLocaleDateString("pt-BR")}
+                            slug={post.slug ?? post._raw.sourceFileName.replace('.md', '')}
+                            image={post.image}
+                            author={{
+                                avatar: post.author.avatar,
+                                name: post.author.name
+                            }}></PostCard>
+                    ))}
+                </PostCardGrid>
+            )}
+
+            {!hasPosts && (
+                <div className="container px-8">
+                    <div className="flex flex-col items-center justify-center gap-8 border-dashed border-2 border-gray-300 p-8 md:p-12 rounded-lg">
+                        <Inbox className="h-12 w-12 text-cyan-100"></Inbox>
+                        <p className="text-gray-100 text-center">Nenhum post encontrado</p>
+                    </div>
+                </div>
+            )}
         </div>
     )
 }
