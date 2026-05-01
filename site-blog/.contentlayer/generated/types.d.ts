@@ -15,21 +15,26 @@ export type Post = {
   type: 'Post'
   title: string
   date: IsoDateTimeString
-<<<<<<< Updated upstream
   description: string
   image: string
-  /** Markdown file body */
-  body: Markdown
-  slug: string
-=======
+  author: Author
+  slug?: string | undefined
   /** Markdown file body */
   body: Markdown
   url: string
->>>>>>> Stashed changes
+  slug: string
 }  
 
 /** Nested types */
-  
+export type Author = {
+  /** File path relative to `contentDirPath` */
+  _id: string
+  _raw: Local.RawDocumentData
+  type: 'Author'
+  name: string
+  avatar: string
+
+}  
 
 /** Helper types */
 
@@ -39,8 +44,8 @@ export type AllTypeNames = DocumentTypeNames | NestedTypeNames
 export type DocumentTypes = Post
 export type DocumentTypeNames = 'Post'
 
-export type NestedTypes = never
-export type NestedTypeNames = never
+export type NestedTypes = Author
+export type NestedTypeNames = 'Author'
 
 export type DataExports = {
   allDocuments: DocumentTypes[]
@@ -68,7 +73,7 @@ export type DocumentTypeMap = {
 }
 
 export type NestedTypeMap = {
-
+  Author: Author
 }
 
  
