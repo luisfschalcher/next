@@ -5,6 +5,7 @@ import { allPosts } from "contentlayer/generated"
 import Image from "next/image"
 import { Avatar } from "@/components/avatar"
 import { Markdown } from "@/components/markdown"
+import { Button } from "@/components/ui/button"
 
 export default function PostPage() {
     const router = useRouter()
@@ -12,7 +13,7 @@ export default function PostPage() {
     const post = allPosts.find(
         (post) => post.slug?.toLowerCase() === slug.toLowerCase()
     )!
-    const publishedDate = new Date(post?.date).toLocaleDateString('pt-Br')
+    const publishedDate = new Date(post?.date).toLocaleDateString('pt-BR')
     return (
         <main className="mt-32 text-gray-100">
             <div className="container space-y-12 px-4 md:px-8">
@@ -39,7 +40,7 @@ export default function PostPage() {
                                 {post?.title}
                             </h1>
                             <Avatar.Container>
-                                <Avatar.Image src={post?.author.avatar.trim()} alt={post?.title} />
+                                <Avatar.Image src={post?.author.avatar.trim()} alt={post?.title} size='sm' />
                                 <Avatar.Content>
                                     <Avatar.Title>
                                         {post?.author.name}
@@ -55,6 +56,18 @@ export default function PostPage() {
                             <Markdown content={post.body.raw}></Markdown>
                         </div>
                     </article>
+                    <aside className="space-y-6">
+                        <div className="rounded-lg bg-gray-700 p-4 md:p-6">
+                            <h2 className="mb-4 text-heading-xs text-gray-100">Compartilhar</h2>
+                            <div className="space-y-3">
+                                {[{ key: '1', providerName: 'LinkedIn' }].map((provider) => (
+                                    <Button key={provider.key} variant='outline'>
+                                        {provider.providerName}
+                                    </Button>
+                                ))}
+                            </div>
+                        </div>
+                    </aside>
                 </div>
             </div>
         </main>

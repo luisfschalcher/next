@@ -1,12 +1,13 @@
 import Link from "next/link"
 import Image from "next/image"
+import { Avatar } from "@/components/avatar"
 
 type Author = {
     name: string
     avatar: string
 }
 
-type  PostCardProps = {
+type PostCardProps = {
     slug: string
     title: string
     description: string
@@ -15,7 +16,7 @@ type  PostCardProps = {
     author: Author
 }
 
-export const PostCard = ({slug, title, description, image, date, author}: PostCardProps) => {
+export const PostCard = ({ slug, title, description, image, date, author }: PostCardProps) => {
     return (
         <Link href={`/blog/${slug}`} className="w-full max-w-2xl rounded-3xl border-[1px] border-gray-400 bg-gray-600 overflow-hidden transition-all duration-300 hover:border-blue-300">
             <div className="p-2 rounded-md overflow-hidden">
@@ -38,14 +39,10 @@ export const PostCard = ({slug, title, description, image, date, author}: PostCa
                     <p className="text-gray-300 text-body-sm line-clamp-3">{description}</p>
                     {/*Footer*/}
                     <div className="flex items-center gap-3 border-t border-gray-400 py-4">
-                        <div className="relative h-5 w-5 md:h-6 md:w-6 overflow-hidden rounded-full border-blue-200 border-[1px]">
-                            <Image
-                                src={author.avatar}
-                                alt=""
-                                fill
-                                className="object-cover rounded-md"></Image>
-                        </div>
-                        <span className="text-body-sm text-gray-300">{author.name}</span>
+                        <Avatar.Container>
+                            <Avatar.Image src={author.avatar} alt={author.name} />
+                            <Avatar.Title>{author.name}</Avatar.Title>
+                        </Avatar.Container>
                     </div>
                 </div>
             </div>
