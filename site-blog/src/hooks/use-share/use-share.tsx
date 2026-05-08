@@ -1,19 +1,27 @@
+import { UseClipboard } from "../use-clipboard"
 import { shareConfig, SOCIAL_PROVIDERS, SocialProviders } from "./social-providers"
 import { useCallback, useMemo } from "react"
+import { Link2 } from "lucide-react"
 
 type UseShareProps = shareConfig & {
     clipboardTimeout?: number
 }
 
-export const useShare = ({ url, title, text, clipboardTimeout = 200 }: UseShareProps) => {
+export const useShare = ({ url, title, text, clipboardTimeout = 2000 }: UseShareProps) => {
+    const { isCopied, handleCopy } = UseClipboard({ timeout: clipboardTimeout })
+
     const shareConfig = useMemo(() => ({
         url,
         ...(title && { title }),
         ...(text && { text }),
     }), [text, title, url])
 
-    const share = useCallback((provider: SocialProviders) => {
+    const share = useCallback(async (provider: SocialProviders) => {
         try {
+            if (provider === 'clipboard') {
+                return await handleCopy(url)
+            }
+
             const providerConfig = SOCIAL_PROVIDERS[provider]
             if (!providerConfig) {
                 throw new Error(`Provider não suportado: ${provider}`)
@@ -25,7 +33,7 @@ export const useShare = ({ url, title, text, clipboardTimeout = 200 }: UseShareP
             console.error(error)
             return false
         }
-    }, [shareConfig])
+    }, [shareConfig, handleCopy])
 
     const shareButtons = useMemo(() => [
         ...Object.entries(SOCIAL_PROVIDERS).map(([key, provider]) => ({
@@ -33,8 +41,14 @@ export const useShare = ({ url, title, text, clipboardTimeout = 200 }: UseShareP
             name: provider.name,
             icon: provider.icon,
             action: () => share(key as SocialProviders)
-        }))
-    ], [share])
+        })),
+        {
+            provider: 'clipboard',
+            name: isCopied ? 'Link copiado!' : 'Copiar link',
+            icon: <Link2 className="h-4 w-4" />,
+            action: () => share('clipboard')
+        }
+    ], [isCopied, share])
 
     return {
         shareButtons

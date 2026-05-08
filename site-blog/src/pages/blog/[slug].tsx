@@ -66,7 +66,7 @@ export default function PostPage() {
                         </div>
                     </article>
                     <aside className="space-y-6">
-                        <div className="rounded-lg bg-gray-700 p-4 md:p-6">
+                        <div className="rounded-lg bg-gray-700">
                             <h2 className="mb-4 text-heading-xs text-gray-100">Compartilhar</h2>
                             <div className="space-y-3">
                                 {shareButtons.map((provider) => (
