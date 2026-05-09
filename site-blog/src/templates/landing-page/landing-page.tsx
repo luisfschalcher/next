@@ -1,4 +1,4 @@
-import { HeroSection, FeatureSection, SupportSection, CustomerStorySection, CallToAction } from "./sections"
+import { HeroSection, FeatureSection, SupportSection, CustomerStorySection } from "./sections"
 
 export const LandingPage = () => {
     return (
@@ -7,7 +7,6 @@ export const LandingPage = () => {
             <FeatureSection></FeatureSection>
             <SupportSection></SupportSection>
             <CustomerStorySection></CustomerStorySection>
-            <CallToAction></CallToAction>
         </article>
     )
 }
