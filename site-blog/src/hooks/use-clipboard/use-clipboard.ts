@@ -14,7 +14,7 @@ export const UseClipboard = ({ timeout = 2000 }: UseClipboardProps) => {
         try {
             await navigator.clipboard.writeText(text)
             setIsCopied(true)
-        } catch (error) {
+        } catch {
             setIsCopied(false)
             return false
         }

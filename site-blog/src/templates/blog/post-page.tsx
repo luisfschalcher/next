@@ -1,27 +1,24 @@
-import { useRouter } from "next/router"
 import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator } from "@/components/ui/breadcrumb"
 import Link from "next/link"
-import { allPosts } from "contentlayer/generated"
+import { Post } from "contentlayer/generated"
 import Image from "next/image"
 import { Avatar } from "@/components/avatar"
 import { Markdown } from "@/components/markdown"
 import { Button } from "@/components/ui/button"
 import { useShare } from "@/hooks"
 
-export const PostPage = () => {
-    const router = useRouter()
-    const slug = typeof router.query.slug === "string" ? router.query.slug : ""
-    const post = allPosts.find(
-        (post) => post.slug?.toLowerCase() === slug.toLowerCase()
-    )!
-    if (!router.isReady || !post) return null
-    const publishedDate = new Date(post?.date).toLocaleDateString('pt-BR')
-    const postUrl = `https://site.set/blog/${slug}`
+export type PostPageProps = {
+    post: Post
+}
+
+export const PostPage = ({ post }: PostPageProps) => {
+    const postUrl = `https://site.set/blog/${post.slug}`
     const { shareButtons } = useShare({
         url: postUrl,
-        title: post.title,
-        text: post.description,
+        title: post?.title,
+        text: post?.description,
     })
+    const publishedDate = new Date(post?.date).toLocaleDateString('pt-BR')
 
     return (
         <main className="py-20 text-gray-100">

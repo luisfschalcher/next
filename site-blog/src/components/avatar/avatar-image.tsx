@@ -12,7 +12,7 @@ const avatarSize = {
     sm: 'h-9 w-9'
 }
 
-export const AvatarImage = ({ src, alt, size = 'xs', ...rest }: AvatarImageProps) => {
+export const AvatarImage = ({ src, alt, size = 'xs' }: AvatarImageProps) => {
     return (
         <div className={cn('relative overflow-hidden rounded-full border-blue-200 border-[1px]', avatarSize[size])}>
             <Image src={src} alt={alt} fill />
